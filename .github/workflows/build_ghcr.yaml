@@ -57,7 +57,7 @@ jobs:
         id: build
         uses: docker/build-push-action@v4
         with:
-          file: ${{matrix.ubuntu}}/Dockerfile
+          context: ${{matrix.ubuntu}}
           labels: ${{ steps.meta.outputs.labels }}
           outputs: type=image,name=${{ steps.vars.outputs.container }},push-by-digest=true,name-canonical=true,push=true
           platforms: ${{matrix.platform}}
@@ -108,7 +108,7 @@ jobs:
       - name: Upload digests
         uses: actions/upload-artifact@v4
         with:
-          name: r2udigests-${{ github.run_id }}
+          name: r2udigests-${{matrix.ubuntu}}-${{ github.run_id }}
           path: /tmp/digests/**
           if-no-files-found: error
           retention-days: 1
@@ -121,12 +121,12 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ubuntu: [focal, jammy]
+        ubuntu: [focal, jammy, noble]
     steps:
       - name: Download digests
         uses: actions/download-artifact@v4
         with:
-          name: r2udigests-${{ github.run_id }}
+          name: r2udigests-${{matrix.ubuntu}}-${{ github.run_id }}
           path: /tmp/digests
 
       - name: Set up Docker Buildx
