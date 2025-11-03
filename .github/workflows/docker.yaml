@@ -1,16 +1,21 @@
 ## Dual build:
 ##  - once in (focal [now skipped],jammy) matrix for amd64 only, and
 ##  - once (noble) for a dual-platform (arm64, amd64)
+##
+## DISABLED: This workflow is disabled on fork as it requires DockerHub credentials
+## Use build_ghcr.yaml instead for building to GitHub Container Registry
 
 name: docker
 
 on:
-  #push:
-  #pull_request:
-  #release:
-  workflow_dispatch:
-  schedule:
-  - cron: "33 3 3 * *"
+  #workflow_dispatch:
+  #schedule:
+  #- cron: "33 3 3 * *"
+  
+  # This workflow is intentionally disabled
+  push:
+    branches:
+      - this-branch-does-not-exist
 
 jobs:
   dual-platform:
