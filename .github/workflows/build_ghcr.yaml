@@ -15,9 +15,6 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - ubuntu: focal
-            platform: linux/amd64
-            runner: ubuntu-latest
           - ubuntu: jammy
             platform: linux/amd64
             runner: ubuntu-latest
@@ -130,7 +127,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        ubuntu: [focal, jammy, noble]
+        ubuntu: [jammy, noble]
     steps:
       - name: Download amd64 digests
         uses: actions/download-artifact@v4
